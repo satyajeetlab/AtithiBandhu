@@ -210,22 +210,53 @@ For high-scale production systems, the numpy-vectorized search can be seamlessly
 
 ---
 
-## MERN BACKEND & FRONTEND SETUP (EXISTING)
+## HOW TO RUN THE ENTIRE PROJECT FROM SCRATCH
 
-### 1. Node.js Backend
-```bash
-cd backend
-npm install
-cp .env.example .env
-# Edit .env: Set MONGO_URI and JWT_SECRET
-npm run dev
-```
-Runs on `http://localhost:5000`.
+This system comprises three primary modules: the **Python AI/ML Backend**, the **Node.js Express Backend** (with MongoDB), and the **Static HTML/JS Frontend**. Follow these steps to run all three in local development:
 
-### 2. Frontend
-```bash
-cd frontend
-npm install
-npm start
+### 1. Run the Python AI/ML Backend
+Exposes safety score predictions, geofencing coordinates, and explainable AI metrics.
+
+```powershell
+# Open a terminal in the project root folder
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+
+# Run the training pipeline to generate the serialized models
+python -m app.ml.train
+
+# Start the FastAPI server (runs on http://127.0.0.1:8000)
+uvicorn app.main:app --port 8000 --reload
 ```
-Runs on `http://localhost:3000`. Accepts browser geolocations.
+
+---
+
+### 2. Run the Node.js Express Backend
+Handles user databases, digital ID blockchain ledger checks, and WebSockets.
+
+1. Ensure **MongoDB** is running locally on port `27017` (default).
+2. Open a new terminal in the `backend/` directory:
+   ```bash
+   cd backend
+   cp .env.example .env
+   # Edit .env to customize MONGO_URI if using Atlas
+   npm install
+   npm run dev
+   ```
+   *The Node backend runs on `http://localhost:5000`.*
+
+---
+
+### 3. Run the Frontend Client
+To avoid CORS blockages from the browser when sending HTTP requests to the Python API, host the static files on a local server rather than launching them directly from the filesystem (`file://`).
+
+We can use the Python interpreter in our virtual environment to boot a web server in one command:
+
+```powershell
+# Open a third terminal in the project root folder
+.\venv\Scripts\python.exe -m http.server 3000 --directory frontend
+```
+
+*Open **`http://127.0.0.1:3000`** in your browser. Log in with traveler credentials (`hana@sakura.travel` / `traveler`) and click **"Consult AI Advisor"** to fetch live AI risk assessments.*
+
