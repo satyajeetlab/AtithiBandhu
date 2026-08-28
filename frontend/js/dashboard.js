@@ -171,7 +171,133 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 5000);
   });
 
+  // AI Safety Advisor Integration
+  const btnAiPredict = document.getElementById("btn-ai-predict");
+  const aiResultDiv = document.getElementById("ai-advisor-result");
+  const aiScoreEl = document.getElementById("ai-score");
+  const aiMatchedAreaEl = document.getElementById("ai-matched-area");
+  const aiPositivesEl = document.getElementById("ai-positives");
+  const aiNegativesEl = document.getElementById("ai-negatives");
+  const aiRecsBox = document.getElementById("ai-recommendations-box");
+  const aiRecsList = document.getElementById("ai-recs-list");
+
+  if (btnAiPredict) {
+    btnAiPredict.addEventListener("click", async () => {
+      // 1. Get current position or fall back to user's registered home location
+      const loc = position || { lat: user.lat, lng: user.lng };
+      if (!loc || loc.lat == null || loc.lng == null) {
+        showBanner("danger", "Please start live location sharing first to establish GPS coordinates.");
+        return;
+      }
+
+      btnAiPredict.disabled = true;
+      btnAiPredict.textContent = "Querying Python AI...";
+      aiResultDiv.style.display = "none";
+
+      try {
+        // Fetch location safety prediction and recommendations in parallel from Python FastAPI (port 8000)
+        const [predRes, recRes] = await Promise.all([
+          fetch("http://127.0.0.1:8000/predict-location", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ latitude: loc.lat, longitude: loc.lng })
+          }).then(r => {
+            if (!r.ok) throw new Error("API error: " + r.statusText);
+            return r.json();
+          }),
+          fetch(`http://127.0.0.1:8000/safer-areas?latitude=${loc.lat}&longitude=${loc.lng}&radius=10000`).then(r => {
+            if (!r.ok) throw new Error("API error: " + r.statusText);
+            return r.json();
+          })
+        ]);
+
+        if (predRes.success && recRes.success) {
+          const predData = predRes.data;
+          const recData = recRes.data;
+
+          // Display safety score and risk level
+          aiScoreEl.textContent = `${predData.tourist_safety_score}% (${predData.risk_level})`;
+          
+          // Color code safety score pill
+          const colorCat = predData.color_category;
+          if (colorCat === "GREEN") {
+            aiScoreEl.style.background = "#a3b899";
+            aiScoreEl.style.color = "#1e281a";
+          } else if (colorCat === "YELLOW") {
+            aiScoreEl.style.background = "#d9c794";
+            aiScoreEl.style.color = "#2d2613";
+          } else { // ORANGE / RED
+            aiScoreEl.style.background = "#d68970";
+            aiScoreEl.style.color = "#2d1813";
+          }
+
+          // Matched area and distance details
+          aiMatchedAreaEl.innerHTML = `Matched: <strong>${predData.matched_area.locality}</strong> (${predData.distance_meters}m away)`;
+
+          // Explainable AI (XAI) factors
+          aiPositivesEl.innerHTML = "";
+          aiNegativesEl.innerHTML = "";
+
+          const positives = predData.explanation.positive_factors || [];
+          const negatives = predData.explanation.risk_factors || [];
+
+          if (positives.length > 0) {
+            positives.forEach(f => {
+              const li = document.createElement("li");
+              li.textContent = `${f.factor}: ${f.value}`;
+              aiPositivesEl.appendChild(li);
+            });
+          } else {
+            const li = document.createElement("li");
+            li.textContent = "None identified";
+            aiPositivesEl.appendChild(li);
+          }
+
+          if (negatives.length > 0) {
+            negatives.forEach(f => {
+              const li = document.createElement("li");
+              li.textContent = `${f.factor}: ${f.value}`;
+              aiNegativesEl.appendChild(li);
+            });
+          } else {
+            const li = document.createElement("li");
+            li.textContent = "None identified";
+            aiNegativesEl.appendChild(li);
+          }
+
+          // Safer recommendations
+          const recs = recData.recommendations || [];
+          if (recs.length > 0) {
+            aiRecsBox.style.display = "block";
+            aiRecsList.innerHTML = "";
+            recs.forEach(r => {
+              const li = document.createElement("li");
+              li.style.color = "#a3b899";
+              li.style.marginBottom = "4px";
+              li.innerHTML = `<strong>${r.locality}</strong> (${r.safety_score}%) <br><span class="muted" style="font-size:0.85em">${r.distance_meters}m away · ${r.risk_level}</span>`;
+              aiRecsList.appendChild(li);
+            });
+          } else {
+            aiRecsBox.style.display = "none";
+          }
+
+          // Show the result panel
+          aiResultDiv.style.display = "block";
+        } else {
+          showBanner("danger", "Failed to retrieve safety intelligence from Python AI backend.");
+        }
+      } catch (err) {
+        console.error(err);
+        showBanner("danger", "AI Advisor is offline. Start the Python FastAPI backend on port 8000 first.");
+      } finally {
+        btnAiPredict.disabled = false;
+        btnAiPredict.textContent = "Consult AI Advisor";
+      }
+    });
+  }
+
   window.addEventListener("beforeunload", () => {
     if (watchId != null) navigator.geolocation.clearWatch(watchId);
   });
 });
+

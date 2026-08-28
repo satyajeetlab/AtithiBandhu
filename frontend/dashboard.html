@@ -74,7 +74,38 @@
             <h3>Geofence groves</h3>
             <p class="muted" style="margin-bottom:8px">Moss is welcome. Rose asks caution. Plum is closed.</p>
             <ul class="feed" id="zone-list"></ul>
+            
+            <div class="divider" style="margin: 16px 0; border-top: 1px solid rgba(255, 255, 255, 0.1)"></div>
+            
+            <div id="ai-advisor-panel">
+              <h3>AI Safety Advisor</h3>
+              <p class="muted" style="margin-bottom:8px">Evaluate local safety conditions and receive safer routing advice powered by Python ML.</p>
+              <button class="btn btn-primary btn-sm" id="btn-ai-predict" type="button" style="width: 100%; border-radius: 6px;">Consult AI Advisor</button>
+              
+              <div id="ai-advisor-result" style="margin-top: 14px; font-size: 0.9em; display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <strong style="color: var(--color-text)">Safety Score:</strong>
+                  <span id="ai-score" class="pill" style="font-weight: 600; padding: 2px 8px; border-radius: 4px;">--</span>
+                </div>
+                <div style="margin-bottom: 8px;">
+                  <span class="muted" id="ai-matched-area">Matched Area: --</span>
+                </div>
+                
+                <div id="ai-explanation-box" style="margin-bottom: 12px; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                  <strong style="display: block; margin-bottom: 4px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Safety Drivers:</strong>
+                  <ul id="ai-positives" style="margin: 0; padding-left: 14px; color: #a3b899; font-size: 0.95em;"></ul>
+                  <strong style="display: block; margin-top: 6px; margin-bottom: 4px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px;">Risk Factors:</strong>
+                  <ul id="ai-negatives" style="margin: 0; padding-left: 14px; color: #d68970; font-size: 0.95em;"></ul>
+                </div>
+                
+                <div id="ai-recommendations-box" style="display: none;">
+                  <strong style="display: block; margin-bottom: 4px; font-size: 0.85em; text-transform: uppercase;">Safer Alternatives Nearby:</strong>
+                  <ul id="ai-recs-list" style="margin: 0; padding-left: 14px; font-size: 0.95em;"></ul>
+                </div>
+              </div>
+            </div>
           </aside>
+
         </div>
       </div>
     </main>
