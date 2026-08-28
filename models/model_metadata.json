@@ -1,0 +1,24 @@
+{
+    "model_name": "Linear Regression",
+    "model_version": "1.0.0",
+    "training_dataset_size": 5000,
+    "features": [
+        "crime_risk_index",
+        "accident_risk_index",
+        "road_condition_score",
+        "sanitation_hygiene_score",
+        "public_review_score",
+        "emergency_access_score",
+        "environment_score",
+        "infrastructure_score",
+        "tourist_facilities_score"
+    ],
+    "metrics": {
+        "mae": 0.002754768911071601,
+        "rmse": 0.003229287159045432,
+        "r2": 0.9999998141223283
+    },
+    "training_timestamp": "2026-08-28T13:24:48.258611",
+    "dataset_status": "SYNTHETIC_STARTER_DO_NOT_TREAT_AS_REAL",
+    "target_leakage_detected": true
+}
