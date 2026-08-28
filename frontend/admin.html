@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Command garden — AtithiBandhu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="petals" id="petals" aria-hidden="true"></div>
+  <div class="glow-follow" id="glow" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="page">
+    <header class="site-nav" id="site-nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <img src="images/kamon.svg" alt="" />
+          <span>
+            <span class="brand-name">AtithiBandhu</span>
+            <span class="brand-sub">客人の友</span>
+          </span>
+        </a>
+        <button class="hamburger" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Garden</a></li>
+          <li><a href="admin.html">Command</a></li>
+        </ul>
+        <div class="nav-auth" id="nav-auth"></div>
+      </div>
+    </header>
+
+    <main id="main" class="app-main">
+      <div class="wrap">
+        <header class="dash-head">
+          <div>
+            <p class="kicker">Command garden</p>
+            <h1>AtithiBandhu — Watchtower</h1>
+            <p class="digital-id">Signed in as <span id="admin-name">Command</span></p>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="btn-logout" type="button">Leave</button>
+        </header>
+
+        <div class="stat-row">
+          <article class="card stat"><b id="stat-tourists">0</b><span>Travelers</span></article>
+          <article class="card stat"><b id="stat-sos">0</b><span>Active SOS</span></article>
+          <article class="card stat"><b id="stat-zones">0</b><span>Groves</span></article>
+        </div>
+
+        <div class="admin-grid">
+          <div class="admin-map map-shell" role="region" aria-label="Live tourist map">
+            <div id="admin-map"></div>
+          </div>
+          <div class="admin-panel">
+            <section class="card card-static">
+              <h3>Active SOS</h3>
+              <div id="sos-list"></div>
+            </section>
+            <section class="card card-static">
+              <h3>Anomaly / geofence feed</h3>
+              <ul class="feed" id="anomaly-list"></ul>
+            </section>
+            <section class="card card-static">
+              <h3>Create a grove</h3>
+              <form id="zone-form" class="zone-form">
+                <input id="zone-name" placeholder="Zone name" required />
+                <select id="zone-type">
+                  <option value="safe">Safe</option>
+                  <option value="danger">Danger</option>
+                  <option value="restricted">Restricted</option>
+                </select>
+                <select id="zone-risk">
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high" selected>High</option>
+                  <option value="critical">Critical</option>
+                </select>
+                <textarea id="zone-coords" required placeholder="Polygon points as: lat,lng; lat,lng; lat,lng (min 3)"></textarea>
+                <input id="zone-desc" placeholder="Optional description" />
+                <p class="error" id="zone-error" role="alert"></p>
+                <button class="btn btn-primary" type="submit">Add zone</button>
+              </form>
+            </section>
+            <section class="card card-static">
+              <h3>Registered travelers</h3>
+              <ul class="feed" id="tourist-list"></ul>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

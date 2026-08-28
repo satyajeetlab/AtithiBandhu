@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Receive an ID — AtithiBandhu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="petals" id="petals" aria-hidden="true"></div>
+  <div class="glow-follow" id="glow" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="page">
+    <header class="site-nav" id="site-nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <img src="images/kamon.svg" alt="" />
+          <span>
+            <span class="brand-name">AtithiBandhu</span>
+            <span class="brand-sub">客人の友</span>
+          </span>
+        </a>
+        <button class="hamburger" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Garden</a></li>
+          <li><a href="register.html">Receive an ID</a></li>
+          <li><a href="login.html">Enter</a></li>
+        </ul>
+        <div class="nav-auth" id="nav-auth"></div>
+      </div>
+    </header>
+
+    <main id="main" class="auth-shell">
+      <aside class="auth-visual">
+        <div>
+          <p class="kicker" style="color:#f3c6d4">証</p>
+          <h2>A name, a seal, a person who would come for you.</h2>
+          <p>Your Digital Tourist ID is a paper lantern — light enough to carry, bright enough to find.</p>
+        </div>
+      </aside>
+      <div class="auth-form-wrap">
+        <div class="card card-static auth-card">
+          <p class="kicker">Register</p>
+          <h1>Create your Digital Tourist ID</h1>
+          <p class="muted">The same fields as the original AtithiBandhu enrollment.</p>
+          <form id="register-form">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input id="name" required placeholder="Hana Sato" />
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" type="email" required placeholder="you@travel.jp" />
+              </div>
+              <div class="field">
+                <label for="password">Password</label>
+                <input id="password" type="password" required minlength="6" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" required placeholder="+81 …" />
+              </div>
+              <div class="field">
+                <label for="nationality">Nationality</label>
+                <input id="nationality" required placeholder="Japan" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="idNumber">Passport / National ID</label>
+              <input id="idNumber" required />
+            </div>
+            <div class="divider" aria-hidden="true"></div>
+            <div class="form-row">
+              <div class="field">
+                <label for="emergencyName">Emergency contact</label>
+                <input id="emergencyName" placeholder="Name" />
+              </div>
+              <div class="field">
+                <label for="emergencyPhone">Emergency phone</label>
+                <input id="emergencyPhone" placeholder="Phone" />
+              </div>
+            </div>
+            <p class="error" id="register-error" role="alert"></p>
+            <button class="btn btn-primary" type="submit">Receive the seal</button>
+          </form>
+          <p class="auth-switch">Already have an account? <a href="login.html">Login</a></p>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="js/core.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

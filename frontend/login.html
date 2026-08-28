@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enter — AtithiBandhu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="petals" id="petals" aria-hidden="true"></div>
+  <div class="glow-follow" id="glow" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="page">
+    <header class="site-nav" id="site-nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <img src="images/kamon.svg" alt="" />
+          <span>
+            <span class="brand-name">AtithiBandhu</span>
+            <span class="brand-sub">客人の友</span>
+          </span>
+        </a>
+        <button class="hamburger" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Garden</a></li>
+          <li><a href="register.html">Receive an ID</a></li>
+          <li><a href="login.html" class="is-active">Enter</a></li>
+        </ul>
+        <div class="nav-auth" id="nav-auth"></div>
+      </div>
+    </header>
+
+    <main id="main" class="auth-shell">
+      <aside class="auth-visual">
+        <div>
+          <p class="kicker" style="color:#f3c6d4">門</p>
+          <h2>The gate opens only for those who belong.</h2>
+          <p>Travelers return to their lantern. Command returns to the watchtower. Both share one garden.</p>
+        </div>
+      </aside>
+      <div class="auth-form-wrap">
+        <div class="card card-static auth-card">
+          <p class="kicker">Enter</p>
+          <h1>Login to AtithiBandhu</h1>
+          <p class="muted">Use your Digital Tourist ID credentials.</p>
+          <form id="login-form" novalidate>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="username" required placeholder="hana@sakura.travel" />
+            </div>
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="••••••••" />
+            </div>
+            <p class="error" id="login-error" role="alert"></p>
+            <button class="btn btn-primary" type="submit">Enter the garden</button>
+          </form>
+          <p class="auth-switch">No account? <a href="register.html">Receive a Digital ID</a></p>
+          <p class="demo-note">
+            Demo traveler: hana@sakura.travel / traveler<br />
+            Demo command: admin@atithibandhu.jp / sakura-admin
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="js/core.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

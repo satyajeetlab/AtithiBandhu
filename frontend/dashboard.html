@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your lantern — AtithiBandhu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="petals" id="petals" aria-hidden="true"></div>
+  <div class="glow-follow" id="glow" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="page">
+    <header class="site-nav" id="site-nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <img src="images/kamon.svg" alt="" />
+          <span>
+            <span class="brand-name">AtithiBandhu</span>
+            <span class="brand-sub">客人の友</span>
+          </span>
+        </a>
+        <button class="hamburger" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Garden</a></li>
+          <li><a href="dashboard.html">Lantern</a></li>
+        </ul>
+        <div class="nav-auth" id="nav-auth"></div>
+      </div>
+    </header>
+
+    <main id="main" class="app-main">
+      <div class="wrap">
+        <header class="dash-head">
+          <div>
+            <p class="kicker">Traveler</p>
+            <h1>Welcome, <span id="welcome-name">Traveler</span></h1>
+            <p class="digital-id" id="digital-id">Digital ID · —</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <span class="pill" id="track-status">Quiet</span>
+            <button class="btn btn-ghost btn-sm" id="btn-logout" type="button">Leave</button>
+          </div>
+        </header>
+
+        <div class="banner banner-danger" id="loc-error" hidden></div>
+        <div class="banner" id="alert-banner" hidden></div>
+
+        <div class="card card-static tracking-bar">
+          <button class="btn btn-primary" id="btn-start" type="button">Start live location sharing</button>
+          <button class="btn btn-ghost" id="btn-stop" type="button" hidden>Stop sharing</button>
+          <div class="sos-wrap">
+            <button class="sos-button" id="sos-button" type="button" aria-label="Send emergency SOS">SOS</button>
+            <p class="sos-ack" id="sos-ack">Hold this seal if you need command.</p>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div>
+            <div class="map-shell" role="region" aria-label="Your location map">
+              <div id="tourist-map"></div>
+            </div>
+            <p class="coords" id="coords">Waiting for a lantern fix…</p>
+          </div>
+          <aside class="card card-static side-list">
+            <h3>Geofence groves</h3>
+            <p class="muted" style="margin-bottom:8px">Moss is welcome. Rose asks caution. Plum is closed.</p>
+            <ul class="feed" id="zone-list"></ul>
+          </aside>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
